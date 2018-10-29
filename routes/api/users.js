@@ -10,6 +10,11 @@ const passport=require('passport');
 //Load User Module
 const User=require('../../models/User');
 
+//Load Input Validation
+const validateRegisterInput=require('../../validation/register');
+const validateLoginInput=require('../../validation/login');
+
+
 //@route GET api/users/test
 //@route Test post route
 //@access Public
@@ -21,10 +26,18 @@ router.get('/test', (req,res) => res.json({msg:"Users work"}));
 //@access Public
 
 router.post('/register', (req,res) => {
+    const {errors, isValid} = validateRegisterInput(req.body);
+
+    //Check Validation 
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
     User.findOne({email: req.body.email})
         .then(user => {
             if(user) {
-                return res.status(400).json({email:'E-mail already exists'})
+                errors.email="E-mail already exists."
+                return res.status(400).json(errors)
             }
             else 
             { 
@@ -63,12 +76,22 @@ router.post('/login', (req,res) => {
     const email=req.body.email;
     const password=req.body.password;
 
+    const {errors, isValid} = validateLoginInput(req.body);
+
+
+    //Check Validation 
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
+
     //Find user By Email
     User.findOne({email})
         .then(user=>{
         //Check User
             if(!user){
-                return res.status(404).json({email: 'User not Found'});
+                errors.email='User not found.'
+                return res.status(404).json(errors);
             }
         //Check password
             bcrypt.compare(password,user.password)
@@ -97,13 +120,12 @@ router.post('/login', (req,res) => {
                             );
                         }
                         else {
-                            res.status(400).json({'password': 'Password is incorrect.'})
+                            errors.password='Password is incorrect';
+                            res.status(400).json(errors)
                         }    
                     }
-                )
-                
+                )      
         })
-
 });
 
 
@@ -112,7 +134,9 @@ router.post('/login', (req,res) => {
 //@access Private
 
 router.get('/me', passport.authenticate('jwt',{ session:false }), (req,res) => {
-     res.json({msg: 'Success'});
+     res.json(
+        req.user
+    );
 });
 
 
