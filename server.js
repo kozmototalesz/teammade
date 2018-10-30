@@ -4,8 +4,8 @@ const bodyParser=require('body-parser');
 const passport=require('passport');
 
 const users=require('./routes/api/users');
-const profile=require('./routes/api/profile');
-const posts=require('./routes/api/posts');
+const profiles=require('./routes/api/profiles');
+const projects=require('./routes/api/projects');
 
 
 const app=express();
@@ -29,11 +29,10 @@ app.use(passport.initialize());
 // Passport Config
 require('./config/passport')(passport);
 
-
 //Using routes
 app.use('/api/users',users);
-app.use('/api/profile',profile);
-app.use('/api/posts',posts);
+app.use('/api/profile',profiles);
+app.use('/api/project',projects);
  
 const port = process.env.PORT || 5000; 
 

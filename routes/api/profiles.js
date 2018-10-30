@@ -17,7 +17,7 @@ const User=require('../../models/User');
 //@route Test post route
 //@access Public
 
-router.get('/test', (req,res) => res.json({msg:"Users work"}));
+//router.get('/test', (req,res) => res.json({msg:"Users work"}));
 
 
 //@route GET api/profile/handle/:handle
@@ -46,47 +46,6 @@ router.get(
 //@route Get Profile for a Project
 //@access Private
 
-router.get(
-    '/project/',
-    passport.authenticate('jwt',{session:false}),
-    (req,res)=>{
-    const errors={};
-
-    Profile.find({})
-        .populate('user', ['name','avatar'])
-        .then(profile =>{
-            if(!profile) {
-                errors.noprofile='There is no profile for this user';
-                return res.status(404).json(errors);
-            }
-            res.json(profile);
-        })
-        .catch(err => res.status(404).json(err));
-});
-
-
-//@route GET api/profile/
-//@route Get All profile
-//@access Private
-
-router.get(
-    '/all/',
-    passport.authenticate('jwt',{session:false}),
-    (req,res)=>{
-    const errors={};
-
-    Profile.find({})
-        .populate('user', ['name','avatar'])
-        .then(profile =>{
-            if(!profile) {
-                errors.noprofile='There is no profile for this user';
-                return res.status(404).json(errors);
-            }
-            res.json(profile);
-        })
-        .catch(err => res.status(404).json(err));
-});
-
 //@route GET api/profile/
 //@route Get current user profile
 //@access Private
@@ -101,7 +60,7 @@ router.get(
         .populate('user', ['name','avatar'])
         .then(profile =>{
             if(!profile) {
-                errors.noprofile='There is no profile for this user';
+                errors.noprofile='There is no profile for this user.';
                 return res.status(404).json(errors);
             }
             res.json(profile);
@@ -165,6 +124,7 @@ router.post(
                     
                 }
             })
+
         /*
         //HRS or Project Leader
         if(typeof req.body.projects !== 'undefined') {
@@ -173,13 +133,13 @@ router.post(
             if(req.body.date) profileFields.date=req.body.date;
             if(req.body.date) profileFields.date=req.body.date;
             if(req.body.date) profileFields.date=req.body.date;
-
-
         }
         if(req.body.status) profileFields.status=req.body.status;
         if(req.body.organization) profileFields.organization=req.body.organization;
         if(req.body.workinghours) profileFields.workinghours=req.body.workinghours;
         */
+
+
 });
 
 

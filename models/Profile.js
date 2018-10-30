@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Create User Schema
+//Create Profile Schema
 const ProfileSchema = new Schema({
     user:{
         type: Schema.Types.ObjectId,
@@ -28,22 +28,30 @@ const ProfileSchema = new Schema({
     },
     projects: [
         {
-            project:{
+            project: {
                 type: Schema.Types.ObjectId,
                 ref: 'projects'
-            },
-            name: {
-                type: String,
-                required: true
-            },
-            leader:{
-                type: String,
-                required: true
             },
             percentage: {
                 type: Number,
                 required: true
-            }
+            },
+            leader: {
+                type: Boolean,
+                default: false
+            },
+            hours: [
+                {
+                    date: {
+                        type: Date,
+                        required: true,
+                    },
+                    hour: {
+                        type: Number,
+                        required: true
+                    }
+                }
+            ]
         }
     ],
     date: {
@@ -57,7 +65,7 @@ const ProfileSchema = new Schema({
     közvetlen felettes nem lát
     határozatlan 
     határozott
-    kötött munkaidő  (törzsidő (x óra))
+    kötött munkaidő (törzsidő (x óra))
     kötetlen munkaidő
     hány óra
     projekteken
@@ -66,6 +74,7 @@ const ProfileSchema = new Schema({
     főnök adja meg 
     hány százalék, milyen projekt
     */
+
 });
 
-module.exports = mongoose.model('profile', ProfileSchema);
+module.exports = mongoose.model('profiles', ProfileSchema);
