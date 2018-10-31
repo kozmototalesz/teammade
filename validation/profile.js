@@ -7,7 +7,6 @@ module.exports = function validateProfileInput(data){
     data.status=!isEmpty(data.status) ? data.status : '';
     data.skills=!isEmpty(data.skills) ? data.skills : '';
 
-
     console.log(data);
 
     if(!Validator.isLength(data.handle,{min:2,max:40})){

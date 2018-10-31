@@ -78,12 +78,10 @@ router.post('/login', (req,res) => {
 
     const {errors, isValid} = validateLoginInput(req.body);
 
-
     //Check Validation 
     if(!isValid){
         return res.status(400).json(errors);
     }
-
 
     //Find user By Email
     User.findOne({email})
@@ -128,7 +126,7 @@ router.post('/login', (req,res) => {
         })
 });
 
-
+ 
 //@route GET api/users/me
 //@route Return me
 //@access Private

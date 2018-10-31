@@ -42,6 +42,35 @@ router.get(
 //@access Private
 
 router.get(
+    '/',
+    passport.authenticate('jwt', {session:false}),
+    (req,res)=>{
+    const errors={};
+
+    Project.find({leader:req.user.id})
+        .then(project => {
+
+            if(!project) {
+                errors.noproject='You do not have projects.';
+                return res.status(404).json(errors);
+            }
+
+            if(project[0].leader===req.user.id){
+             res.json(project);
+            } else {
+                errors.notallowed='You cannot see this project.';
+                res.status(400).json(errors);
+            }
+        })
+        .catch(err => res.status(404).json(err));
+});     
+
+
+//@route GET api/projects
+//@route Check a project
+//@access Private
+
+router.get(
     '/:handle',
     passport.authenticate('jwt', {session:false}),
     (req,res)=>{
@@ -51,7 +80,7 @@ router.get(
         .then(project => {
 
             if(!project) {
-                errors.noprofile='There is no project for this handle.';
+                errors.noproject='There is no project for this handle.';
                 return res.status(404).json(errors);
             }
 
@@ -127,24 +156,43 @@ router.post(
                 })
 });
 
+
 //@route POST api/
 //@route Add Milestone to a project
 //@access Private
 
-router.post('/milestones/:id', passport.authenticate('jwt',{session:false}),(req,res)=>{
-        Profile.findOne({user: req.user.id})
-        .then(profile => {
-           // if(profile.)
+router.post('/milestones/', passport.authenticate('jwt',{session:false}),(req,res)=>{
+          
+    const newMilestone = {
+        name: req.body.name,
+        description: req.body.description,
+        deadline: req.body.deadline,
+        status: req.body.status,
+        end: req.body.end
+    }
+    //Add milestones   
 
-            const newMilestone = {
-                name: req.body.name,
-                description: req.body.description,
-                deadline: req.body.deadline,
-                status: req.body.status,
-                end: req.body.end
+    Project.findOne({handle: req.body.handle})
+        .then(project => {
+            let errors={};
+            if(project) {
+                if(project.leader===req.user.id){
+                    Project.findOne({ handle: req.body.handle })
+                        .then(project => {
+                            project.milestones.push(newMilestone);
+
+                            project.save().then(res.json(project));
+
+                        })
+                        
+                } else {
+                    errors.leader='You are not the leader of this project. You cannot add milestones.';
+                    res.status(400).json(errors);
+                }
+            } else {
+                    errors.handle='There is no project for this handle.'
+                    res.status(400).json(errors);
             }
-        //Add milestones    
-        
         })
 });
 
