@@ -3,13 +3,14 @@ const Schema=mongoose.Schema;
 
 //Create Project Schema
 const ProjectSchema = new Schema({
+
     handle: {
         type:String,
         required: true
     },
     leader: {
-        type:String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'users'
     },
     name: {
         type:String,
@@ -50,8 +51,19 @@ const ProjectSchema = new Schema({
     },
     members: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'users'
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: 'users'
+            },
+            name: {
+                type: String
+            },
+            status: {
+                type: String
+            },
+            organization: {
+                type: String
+            }
         }
     ],
     date: {

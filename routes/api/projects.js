@@ -196,4 +196,38 @@ router.post('/milestones/', passport.authenticate('jwt',{session:false}),(req,re
         })
 });
 
+router.post('/members/', passport.authenticate('jwt',{session:false}),(req,res)=>{
+          
+    const newMember = {
+        user: req.body.id,
+        name: req.body.name,
+        status: req.body.status,
+        organization: req.body.organization
+    }
+    //Add milestones   
+
+    Project.findOne({handle: req.body.handle})
+        .then(member => {
+            let errors={};
+            if(member) {
+                if(project.leader===req.user.id){
+                    Project.findOne({ handle: req.body.handle })
+                        .then(project => {
+                            project.milestones.push(newMember);
+
+                            project.save().then(res.json(project));
+
+                        })
+                        
+                } else {
+                    errors.leader='You are not the leader of this project. You cannot add milestones.';
+                    res.status(400).json(errors);
+                }
+            } else {
+                    errors.handle='There is no project for this handle.'
+                    res.status(400).json(errors);
+            }
+        })
+});
+
 module.exports=router;
