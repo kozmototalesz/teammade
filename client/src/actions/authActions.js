@@ -36,7 +36,6 @@ import axios from 'axios';
             const decoded=jwt_decode(token);
             //Curren User
             dispatch(currentUser(decoded));
-
         })
         .catch(err =>
             dispatch({
@@ -52,4 +51,19 @@ export const currentUser = (decoded)=>{
         type: SET_CURRENT_USER,
         payload: decoded
     }
+}
+
+// Log user out
+
+export const logoutUser = () => dispatch => {
+
+  //Remove token from localStorage
+    localStorage.removeItem('jwtToken');
+  //Remove auth header
+    setAuthToken(false);
+  //set current to {} object
+    dispatch({
+        type: SET_CURRENT_USER,
+        payload: {}
+    });
 }
