@@ -11,12 +11,22 @@ img {
   margin-bottom: -50px;
 }
 
+.title{
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.phrase{
+  color: rgba(0, 0, 0, 0.6);
+
+
+}
+
 .landing-inner {
   padding-top: 80px;
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+
   position: absolute;
   top: 0;
   left: 0;

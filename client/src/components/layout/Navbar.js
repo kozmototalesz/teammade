@@ -7,7 +7,7 @@ class Navbar extends Component{
             <div>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
                     <div className="container">
-                    <a className="navbar-brand" href="landing.html">teammade</a>
+                    <a className="navbar-brand" href="/">teammade</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -24,7 +24,7 @@ class Navbar extends Component{
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/login" >Login
+                            <Link className="nav-link" to="/login" >Sign up
                             </Link>
                         </li>
                         </ul>
