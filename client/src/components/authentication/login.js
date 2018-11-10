@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/authActions';
-import classnames from 'classnames';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
@@ -80,7 +79,7 @@ class Login extends Component {
                         name="password"
                         type="password"
                         value={this.state.password}
-                        onChange={this.onChange}
+                        onChange={this.onChange} 
                         errors={errors.password}
                         />
 

@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import {currentUser, logoutUser} from './actions/authActions';
 
 import store from './store'; 
+import PrivateRoute from  './components/common/PrivateRoute';
+
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Register from './components/authentication/register';
 import Login from './components/authentication/login';
+import Dashboard from './components/dashboard/Dashboard';
 
+import editProfile from './components/create-profile/CreateProfile';
+
+//ACTIONS
+import { clearProfile } from './actions/profileActions';
 
 import './App.css';
 
@@ -29,8 +36,12 @@ if(localStorage.jwtToken){
   const currenTime=Date.now()/1000;
   if(decoded.exp < currenTime) {
     //logout
-    store.dispatch(logoutUser);
+    store.dispatch(logoutUser());
     // clreear,redirect
+
+    store.dispatch(clearProfile());
+
+
     window.location.href='/login';
 
   }
@@ -39,7 +50,7 @@ if(localStorage.jwtToken){
 class App extends Component {
   render() {
     return (
-      <Provider store={ store}>
+      <Provider store={store}>
         <Router>
           <div className="MyReactApp">
           <Navbar></Navbar>
@@ -47,6 +58,12 @@ class App extends Component {
           <div className="containter">
             <Route exact path="/register" component={Register}></Route>
             <Route exact path="/login" component={Login}></Route>
+            <Switch>>
+              <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
+            </Switch>
+            <Switch>>
+              <PrivateRoute exact path="/edit-profile" component={editProfile}></PrivateRoute>
+            </Switch>
 
           </div>
           <Footer></Footer>
