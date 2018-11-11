@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {registerUser} from '../../actions/authActions';
@@ -73,32 +72,31 @@ class Register extends Component {
                             value={this.state.name}
                             onChange={this.onChange}
                             errors={errors.name}
-                            />
+                        />
 
                          <TextFieldGroup placeholder="Email address"
-                        name="email"
-                        type="email"
-                        value={this.state.email}
-                        onChange={this.onChange}
-                        errors={errors.email}
+                            name="email"
+                            type="email"
+                            value={this.state.email}
+                            onChange={this.onChange}
+                            errors={errors.email}
                         />
 
                          <TextFieldGroup placeholder="Password"
-                        name="password"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onChange}
-                        errors={errors.password}
+                            name="password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.onChange}
+                            errors={errors.password}
                         />
 
                          <TextFieldGroup placeholder="Confirm Password"
-                        name="password2"
-                        type="password2"
-                        value={this.state.password2}
-                        onChange={this.onChange}
-                        errors={errors.password2}
+                            name="password2"
+                            type="password2"
+                            value={this.state.password2}
+                            onChange={this.onChange}
+                            errors={errors.password2}
                         />
-
 
                         <input type="submit" className="btn btn-info btn-block mt-4" />
                     </form>

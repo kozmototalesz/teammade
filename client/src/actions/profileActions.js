@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS} from './types';
 
-//GET CURRENT PROFIL
+//GET CURRENT PROFILE
 
 export const getCurrentProfile = () => dispatch => {
     dispatch(setProfileLoading());
@@ -32,3 +32,27 @@ export const clearProfile = () => {
         type: CLEAR_CURRENT_PROFILE
     }
 }
+
+//ADD PROJECT
+export const addProject = (prData,history) => dispatch =>
+{
+    axios
+        .post('/api/project',prData)
+        .then(res => history.push('/dashboard'))
+        .catch(err => dispatch({type:GET_ERRORS,payload:err.response.data}))
+
+}
+
+//CREATE PROFILE
+export const createnewProfile = (profileData, history) => dispatch => {
+    axios
+        .post('/api/profile',profileData)
+        .then(res=> history.push('/dashboard'))
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })    
+        );
+}
+

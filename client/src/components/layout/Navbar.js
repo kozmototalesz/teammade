@@ -22,9 +22,13 @@ class Navbar extends Component{
             <ul className="navbar-nav ml-auto">
             
             <li className="nav-item">
+                <Link className="nav-link" to="/dashboard" >dashoard
+                </Link>
+            </li>
+            <li className="nav-item">
                 <div onClick={this.onLogoutClick.bind(this)} className="nav-link">
                 <img className="rounded-circle" src={user.avatar} alt={user.name} style={{width:'25px', marginRight:'5px'}}></img>
-                Logout
+                logout
                 </div>
             </li>
             </ul>
@@ -33,11 +37,11 @@ class Navbar extends Component{
         const guestLinks=(
             <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-                <Link className="nav-link" to="/login" >Login
+                <Link className="nav-link" to="/login" >login
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/register" >Sign up
+                <Link className="nav-link" to="/register" >sign up
                 </Link>
             </li>
             </ul>
@@ -48,7 +52,7 @@ class Navbar extends Component{
             <div>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
                     <div className="container">
-                    <a className="navbar-brand" href="/">teammade</a>
+                    <Link className="navbar-brand" to="/">teammade</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                         <span className="navbar-toggler-icon"></span>
                     </button>

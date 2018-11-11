@@ -90,6 +90,9 @@ router.post(
         if(req.body.handle) profileFields.handle=req.body.handle;
         if(req.body.date) profileFields.date=req.body.date;
         if(req.body.status) profileFields.status=req.body.status;
+        if(req.body.organization) profileFields.organization=req.body.organization;
+        if(req.body.organization) profileFields.workinghours=req.body.workinghours;
+
  
         //Skills
         if(typeof req.body.skills !== 'undefined') {
@@ -118,10 +121,8 @@ router.post(
                             }
 
                         })
-                    
                         new Profile(profileFields).save()
                             .then(profile => res.json(profile))
-                    
                 }
             })
 

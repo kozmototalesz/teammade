@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextFieldGroup';
 import {withRouter} from 'react-router-dom';
-import {createnewProfile} from '../../actions/profileActions';
+import {createnewProfile, getCurrentProfile} from '../../actions/profileActions';
+import isEmpty from '../../validation/is-empty';
 
 
  class CreateProfile extends Component {
@@ -43,10 +44,40 @@ import {createnewProfile} from '../../actions/profileActions';
         this.setState({[e.target.name]: e.target.value});
     }
 
+    componentDidMount(){
+        this.props.getCurrentProfile();
+
+    }
+
     componentWillReceiveProps(nextProps){
-        if(nextProps.errors){
-            this.setState({errors:nextProps.errors})
-        }
+     
+
+        if(nextProps.profile.profile)
+        {
+            const profile = nextProps.profile.profile;
+
+            //skill 
+
+
+            profile.status = !isEmpty(profile.status) ? profile.status : '';
+            profile.handle = !isEmpty(profile.handle) ? profile.handle : '';
+            profile.skills = !isEmpty(profile.skills) ? profile.skills : '';
+            profile.organization = !isEmpty(profile.organization) ? profile.organization : '';
+            profile.workinghours = !isEmpty(profile.workinghours) ? profile.workinghours : '';
+
+
+         console.log(profile);
+            
+            this.setState({
+                handle:profile.handle,
+                status:profile.status,
+                skills:profile.skills,
+                organization:profile.organization,
+                workinghours:profile.workinghours  
+            })
+            
+
+        }   
     }
 
 
@@ -58,10 +89,7 @@ import {createnewProfile} from '../../actions/profileActions';
         <div className="containter">
             <div className="row">
                 <div className="col-md-8 m-auto">
-                    <h1 className="display-4 text-center">Create your profile</h1>
-                    <p className="lead text-center">
-                        Please add your missing informations
-                    </p>
+                    <h1 className="display-4 text-center">Edit you profile</h1>
                    
                     <form onSubmit={this.onSubmit}>
                     <div className="col-md-6 m-auto">
@@ -141,4 +169,4 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps,{createnewProfile})(withRouter(CreateProfile));
+export default connect(mapStateToProps,{createnewProfile,getCurrentProfile})(withRouter(CreateProfile));

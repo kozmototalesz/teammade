@@ -3,13 +3,16 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {getCurrentProfile} from '../../actions/profileActions';
+import ProfileActions from './ProfileActions';
+
+import Project from './Project'
+
 
 import Spinner from '../common/Spinner';
 
 class Dashboard extends Component{
     componentDidMount(){
         this.props.getCurrentProfile(); 
-
     }
     
     render(){
@@ -20,18 +23,23 @@ class Dashboard extends Component{
 
         if(profile===null || profile.loading){
             dashboardContent = <Spinner/>
-
-        }
-        else {
+        } else {
             //Check logged user has profile:
             if(Object.keys(profile).length>0){
-                dashboardContent=<h4>Display Profile</h4>
+                dashboardContent=(
+                    <div>
+                        <p className="lead text-muted">Welcome {user.name} </p>
+                        <ProfileActions></ProfileActions>
+                        <Project project={profile.experience}></Project>
+
+                    </div>
+                )
             } else {
                 dashboardContent=(
                     <div>
                         <p className="lead text-muted"> Hey {user.name},</p>
                         <p>You still some have missing data, please add some info.</p>
-                        <Link to="/edit-profile" className="btn btn-lg btn-info">Edit Profile</Link>
+                        <Link to="/edit-profile" className="btn btn-lg btn-info">Add Profile</Link>
                     </div>
                 );
             }

@@ -8,7 +8,6 @@ import {currentUser, logoutUser} from './actions/authActions';
 import store from './store'; 
 import PrivateRoute from  './components/common/PrivateRoute';
 
-
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
@@ -16,7 +15,11 @@ import Register from './components/authentication/register';
 import Login from './components/authentication/login';
 import Dashboard from './components/dashboard/Dashboard';
 
-import editProfile from './components/create-profile/CreateProfile';
+import createProfile from './components/create-profile/CreateProfile';
+import editProfile from './components/edit-profile/EditProfile';
+import addProjects from './components/add-projects/AddProjects';
+
+
 
 //ACTIONS
 import { clearProfile } from './actions/profileActions';
@@ -62,7 +65,14 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
             </Switch>
             <Switch>>
+              <PrivateRoute exact path="/create-profile" component={createProfile}></PrivateRoute>
+            </Switch>
+            <Switch>>
               <PrivateRoute exact path="/edit-profile" component={editProfile}></PrivateRoute>
+            </Switch>
+
+             <Switch>>
+              <PrivateRoute exact path="/add-project" component={addProjects}></PrivateRoute>
             </Switch>
 
           </div>
