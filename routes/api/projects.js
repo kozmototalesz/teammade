@@ -15,8 +15,8 @@ const User=require('../../models/User');
 
 
 
-//@route GET api/profile/
-//@route Get All profile
+//@route GET api/project/
+//@route Get All project
 //@access Private
 
 router.get(
@@ -25,14 +25,13 @@ router.get(
     (req,res)=>{
     const errors={};
 
-    Profile.find({})
-        .populate('user', ['name','avatar'])
-        .then(profile =>{
-            if(!profile) {
-                errors.noprofile='There is no profile for this user';
+    Project.find({})
+        .then(project =>{
+            if(!project) {
+                errors.noproject='There is no project.';
                 return res.status(404).json(errors);
             }
-            res.json(profile);
+            res.json(project);
         })
         .catch(err => res.status(404).json(err));
 });

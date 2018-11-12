@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING} from './types';
 
 //GET CURRENT PROFILE
 
@@ -26,6 +26,7 @@ export const setProfileLoading = () => {
     }
 }
 
+
 //PROFILE CLEARING
 export const clearProfile = () => {
     return{
@@ -42,6 +43,7 @@ export const addProject = (prData,history) => dispatch =>
         .catch(err => dispatch({type:GET_ERRORS,payload:err.response.data}))
 
 }
+
 
 //CREATE PROFILE
 export const createnewProfile = (profileData, history) => dispatch => {

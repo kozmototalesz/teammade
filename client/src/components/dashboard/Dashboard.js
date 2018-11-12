@@ -28,9 +28,9 @@ class Dashboard extends Component{
             if(Object.keys(profile).length>0){
                 dashboardContent=(
                     <div>
-                        <p className="lead text-muted">Welcome {user.name} </p>
+                        <p className="lead text-muted">Welcome {user.name}, </p>
                         <ProfileActions></ProfileActions>
-                        <Project project={profile.experience}></Project>
+                        <Project></Project>
 
                     </div>
                 )
