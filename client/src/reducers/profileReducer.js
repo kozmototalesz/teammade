@@ -1,9 +1,9 @@
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE} from '../actions/types';
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES} from '../actions/types';
 
 const initialState={
     profile:null,
-    profiles:null,
-    loading: false
+    loading: false,
+    profiles:null
 }
 
 export default function(state=initialState,action){
@@ -24,6 +24,12 @@ export default function(state=initialState,action){
                 ...state,
                 profile:null
             };
+        case GET_TEAMMATES:
+            return{
+                ...state,
+                profiles:action.payload
+            }
+
         default:
             return state
     }

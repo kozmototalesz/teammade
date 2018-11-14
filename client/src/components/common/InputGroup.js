@@ -2,19 +2,24 @@ import React from 'react';
 import classnames from 'classnames';
 
 
-const TextFieldGroup = ({
+const InputGroup = ({
     name,
     placeholder,
     value,
     label,
     errors,
-    info,
+    icon,
     type,
     onChange,
     disabled
 }) => {
     return(
-        <div className="form-group">
+        <div className="input-group mb-3">
+            <div className="input-group-prepend">
+                <span className="input-group-text">
+                    <i className={icon}/>
+                </span>
+            </div>
             <input type={type} 
             className={classnames('form-control form-control-lg', {
                 'is-invalid' : errors
@@ -23,8 +28,6 @@ const TextFieldGroup = ({
             
             placeholder={placeholder} name={name} value={value} onChange={onChange}/>
             
-            { info && (<small className="from-text text-muted">{info}</small>)}
-
             {(<div className="invalid-feedback">{errors}</div>)}
 
         </div>
@@ -32,4 +35,8 @@ const TextFieldGroup = ({
 };
 
 
-export default TextFieldGroup;
+
+
+
+
+export default InputGroup;

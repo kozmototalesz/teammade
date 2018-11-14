@@ -51,7 +51,7 @@ import {createnewProfile} from '../../actions/profileActions';
 
 
   render() {
-    const {errors} = this.state;
+    const errors = this.state.errors;
 
     return (
       <div className="create-profle">

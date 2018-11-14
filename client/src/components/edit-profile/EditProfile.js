@@ -19,7 +19,6 @@ import isEmpty from '../../validation/is-empty';
             projects:{},
             errors:{}
         }
-
         this.onChange=this.onChange.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
     }
@@ -31,13 +30,10 @@ import isEmpty from '../../validation/is-empty';
             status:this.state.status,
             skills:this.state.skills,
             organization:this.state.organization,
-            workinghours:this.state.workinghours,
-            
+            workinghours:this.state.workinghours,   
         }
-
         this.props.createnewProfile(profileData,this.props.history);
     }
-
 
     onChange(e){
         e.preventDefault();
@@ -46,7 +42,6 @@ import isEmpty from '../../validation/is-empty';
 
     componentDidMount(){
         this.props.getCurrentProfile();
-
     }
 
     componentWillReceiveProps(nextProps){
@@ -64,9 +59,6 @@ import isEmpty from '../../validation/is-empty';
             profile.skills = !isEmpty(profile.skills) ? profile.skills : '';
             profile.organization = !isEmpty(profile.organization) ? profile.organization : '';
             profile.workinghours = !isEmpty(profile.workinghours) ? profile.workinghours : '';
-
-
-         console.log(profile);
             
             this.setState({
                 handle:profile.handle,

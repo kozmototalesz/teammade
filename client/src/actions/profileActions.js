@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, GET_TEAMMATES} from './types';
 
 //GET CURRENT PROFILE
 
@@ -34,14 +34,31 @@ export const clearProfile = () => {
     }
 }
 
+//GET TEAMMATES BY NAME
+export const getTeamMates = (filterData) => dispatch => {
+    dispatch(setProfileLoading());
+    axios.get(`/api/profile/all?name=${filterData.name}`)
+        .then(res =>
+            dispatch({
+                type: GET_TEAMMATES,
+                payload:res.data
+            }))
+        .catch(err=>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+    );
+}
+
+
 //ADD PROJECT
 export const addProject = (prData,history) => dispatch =>
 {
     axios
         .post('/api/project',prData)
         .then(res => history.push('/dashboard'))
-        .catch(err => dispatch({type:GET_ERRORS,payload:err.response.data}))
-
+        .catch(err => dispatch({type:GET_ERRORS, payload: err.response.data}))
 }
 
 

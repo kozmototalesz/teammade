@@ -22,15 +22,15 @@ module.exports = function validateRegisterInput(data){
     }
 
     if(Validator.isEmpty(data.password)){
-        errors.email = 'Password field is required.'
+        errors.password = 'Password field is required.'
     }
 
     if(!Validator.isLength(data.password, {min: 2, max:20})){
         errors.password='Password must be between 2 and 20 characters.';
     }
 
-    if(Validator.isEmpty(data.password)){
-        errors.password = 'Confirm Password field is required.';
+    if(Validator.isEmpty(data.password2)){
+        errors.password2 = 'Confirm Password field is required.';
     }
 
     if(!Validator.equals(data.password,data.password2)){

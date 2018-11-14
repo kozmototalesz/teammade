@@ -34,6 +34,7 @@ class Register extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
         if(nextProps.errors){
             this.setState({errors:nextProps.errors});
         }
@@ -54,8 +55,7 @@ class Register extends Component {
 
   render() {
     
-        const {errors} = this.state;
-        console.log(this.state);
+        const errors = this.state.errors;
    
     return (
         <div>
