@@ -41,12 +41,8 @@ if(localStorage.jwtToken){
     //logout
     store.dispatch(logoutUser());
     // clreear,redirect
-
     store.dispatch(clearProfile());
-
-
     window.location.href='/login';
-
   }
 }
 
@@ -70,11 +66,9 @@ class App extends Component {
             <Switch>>
               <PrivateRoute exact path="/edit-profile" component={editProfile}></PrivateRoute>
             </Switch>
-
-             <Switch>>
+            <Switch>
               <PrivateRoute exact path="/add-project" component={addProjects}></PrivateRoute>
             </Switch>
-
           </div>
           <Footer></Footer>
           </div>

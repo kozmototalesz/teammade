@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, GET_TEAMMATES} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, ADD_TEAMMATE, GET_TEAMMATES} from './types';
 
 //GET CURRENT PROFILE
 
@@ -49,6 +49,13 @@ export const getTeamMates = (filterData) => dispatch => {
                 payload: err.response.data
             })
     );
+}
+
+export const addMember = (userData) => dispatch => {
+    dispatch({
+        type: ADD_TEAMMATE,
+        payload: 'lofasz'
+    })
 }
 
 

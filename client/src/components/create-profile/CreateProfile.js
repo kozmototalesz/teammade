@@ -30,7 +30,7 @@ import {createnewProfile} from '../../actions/profileActions';
             status:this.state.status,
             skills:this.state.skills,
             organization:this.state.organization,
-            workinghours:this.state.workinghours,
+            workinghours:this.state.workinghours
             
         }
 

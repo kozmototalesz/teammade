@@ -4,8 +4,9 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
+import ChooseMembers from './ChooseMembers';
 
-import {addProject,getTeamMates} from '../../actions/profileActions'
+import {addProject} from '../../actions/profileActions'
 
 
 
@@ -23,12 +24,12 @@ class AddProjects extends Component {
             end:'',
             errors:'',
             members:'',
-            profiles:''
+            profiles:'',
+            choosen:{}
         }
         this.onChange=this.onChange.bind(this);
         //this.onCheck=this.onCheck.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
-        this.getTeamList=this.getTeamList.bind(this);
 
     }
 
@@ -51,32 +52,17 @@ class AddProjects extends Component {
     }
 
     onChange(e){
-      this.setState({
-        [e.target.name]:e.target.value
-      })
-    }
-
-    getTeamList(e){
-
-      const filterData={
-        name: e.target.value
-       }
-      this.props.getTeamMates(filterData);
-
+      
     }
 
     componentWillReceiveProps(nextProps){
 
-      if(nextProps.profile.profiles){
-
-      this.setState();
-
-      }
       if(nextProps.errors){
           this.setState({
             errors:nextProps.errors
           });
       }
+
     }
 
 
@@ -96,19 +82,10 @@ class AddProjects extends Component {
             </div>
             <div className="row">
             
-                <div className="col-md-6">
-                    <form onSubmit={this.onSubmit}>
-                    <div className="col-md-6 m-auto">
-                        <TextFieldGroup 
-                            placeholder="Project Handle"
-                            name="handle"
-                            value={this.state.handle}
-                            onChange={this.onChange}
-                            error={errors.handle}
-                        >
-                        </TextFieldGroup>
-                        </div>
-                        <div className="col-md-6 m-auto">
+                <div className="col-md-6" style={{display: 'flex',justifyContent:'flex-end'}}>
+                    <form onSubmit={this.onSubmit} style={{flex:0.5}}>
+                    
+                        <div className="col-lg-12">
                         <TextFieldGroup 
                             placeholder="Name"
                             name="name"
@@ -118,7 +95,17 @@ class AddProjects extends Component {
                         >
                         </TextFieldGroup>
                         </div>
-                        <div className="col-md-6 m-auto">
+                        <div className="col-lg-12">
+                        <TextFieldGroup 
+                            placeholder="Project Handle"
+                            name="handle"
+                            value={this.state.handle}
+                            onChange={this.onChange}
+                            error={errors.handle}
+                        >
+                        </TextFieldGroup>
+                        </div>
+                        <div className="col-lg-12">
                         <TextAreaFieldGroup
                             placeholder="Description"
                             name="description"
@@ -128,7 +115,7 @@ class AddProjects extends Component {
                         >
                         </TextAreaFieldGroup>
                         </div>
-                        <div className="col-md-6 m-auto">
+                        <div className="col-lg-12">
                         <TextFieldGroup
                             placeholder="Project ending: YYYY/MM/DD"
                             name="end"
@@ -138,22 +125,10 @@ class AddProjects extends Component {
                             error={errors.end}
                         >
                         </TextFieldGroup>
+                       
                         </div>
 
-                        <div className="col-md-6 m-auto">
-
-                        <SelectListGroup
-                           placeholder="status"
-                           name="teammates"
-                           type="name"
-                           value={this.state.teammate}
-                           onChange={this.getTeamList}
-                           error={errors.teammate}
-                           teammates={this.props.profile.profiles}
-                           info="Choose your teammates"
-                        >
-                        </SelectListGroup>
-                        </div>
+                      
                         
                       {/*   <div classNem="form-check mb-4">
                           <input
@@ -168,18 +143,42 @@ class AddProjects extends Component {
                         
                         </div> */}
                     
-                        <div className="col-md-6 m-auto">
-                        <input type="submit" value="Submit" className="btn btn-info btn-block mt-4"></input>   
+                        <div className="col-lg-12">
+                        <input type="submit" value="Submit" className="btn btn-info btn-block mt-4"></input>  
+                       
                         </div>
 
                     </form>
                     
 
                 </div>
-                <div className="col-md-6">
+                <div className="col-lg-6">
+                      <div className="row">
+                      <div className="col-lg-6">
                       
-                </div>
+                      {/* <SelectListGroup
+                        placeholder="status"
+                        name="teammates"
+                        type="name"
+                        value={this.state.teammate}
+                        onChange={this.getTeamList}
+                        error={errors.teammate}
+                        teammates={this.props.profile.profiles}
+                        info="Choose your teammates"
+                      >
+                      </SelectListGroup> */}
 
+                       <ChooseMembers value={this.state.choosen}></ChooseMembers>
+
+
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Nagy Béla<span></span></li>
+                        <li className="list-group-item">Kozma Tamás</li>
+                       
+                      </ul>
+                      </div>
+                      </div>
+                </div>
             </div>
         </div>
         
@@ -193,4 +192,4 @@ const mapStateToProps=state=>({
     errors: state.errors,
 })
 
-export default connect(mapStateToProps,{addProject,getTeamMates})(withRouter(AddProjects));
+export default connect(mapStateToProps,{addProject})(withRouter(AddProjects));
