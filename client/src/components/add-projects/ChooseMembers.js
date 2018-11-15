@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {getTeamMates,addMember} from '../../actions/profileActions';
+import {getTeamMates} from '../../actions/profileActions';
+import {addMember} from '../../actions/projectActions';
 import {connect} from 'react-redux';
 
 class ChooseMembers extends Component {
@@ -11,7 +12,8 @@ class ChooseMembers extends Component {
                 id:''
             },
             selectedMates:'',
-            errors:{}
+            errors:{},
+            addedMates:''
         }
         this.getTeamList=this.getTeamList.bind(this);
         this.addMember=this.addMember.bind(this);
@@ -22,8 +24,7 @@ class ChooseMembers extends Component {
             name: this.state.member.name,
             id: this.state.member.id
         }
-        console.log(this.state.member);
-        //this.props.addMember()
+        this.props.addMember(this.state.member);
     }
 
     getTeamList(e){  
@@ -40,7 +41,7 @@ class ChooseMembers extends Component {
                 return element.key===e.target.value;
         });
 
-            if(found){
+        if(found){
 
             const chosen={
                 id:e.target.value,
@@ -70,6 +71,16 @@ class ChooseMembers extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.errors){
             this.setState({errors:nextProps.errors})
+        }
+
+        if(nextProps.projects.temporaryMembers.length>0){
+            const addedMates=nextProps.projects.temporaryMembers.map(mate=>(
+                <li className="list-group-item" key={mate.id} >{mate.name}</li>
+            ));
+                console.log(addedMates);
+
+            this.setState({addedMates:addedMates});
+
         }
 
         if(nextProps.profile.profiles){
@@ -108,6 +119,14 @@ class ChooseMembers extends Component {
         </div>
         </div>
 
+            <ul className="list-group list-group-flush">
+                {this.state.addedMates}
+            </ul>
+
+
+
+
+
       </div>
     )
   }
@@ -116,7 +135,7 @@ class ChooseMembers extends Component {
 const mapStateToProps=state=>({
     profile: state.profile,
     errors: state.errors,
-    chosen: state.chosen
+    projects: state.projects
 })
 
 export default connect(mapStateToProps,{getTeamMates,addMember})(ChooseMembers);

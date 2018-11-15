@@ -1,4 +1,4 @@
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES, ADD_TEAMMATE} from '../actions/types';
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES, ADD_TEAMMATES} from '../actions/types';
 
 const initialState={
     profile:null,
@@ -29,11 +29,6 @@ export default function(state=initialState,action){
             return{
                 ...state,
                 profiles:action.payload
-            }
-        case ADD_TEAMMATE:
-            return{
-                ...state,
-                chosen:action.payload
             }
 
         default:

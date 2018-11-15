@@ -52,7 +52,9 @@ class AddProjects extends Component {
     }
 
     onChange(e){
-      
+      this.setState({
+        [e.target.name]:e.target.value
+      })
     }
 
     componentWillReceiveProps(nextProps){
@@ -171,11 +173,6 @@ class AddProjects extends Component {
                        <ChooseMembers value={this.state.choosen}></ChooseMembers>
 
 
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Nagy Béla<span></span></li>
-                        <li className="list-group-item">Kozma Tamás</li>
-                       
-                      </ul>
                       </div>
                       </div>
                 </div>
