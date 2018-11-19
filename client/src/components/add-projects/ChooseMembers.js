@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {getTeamMates} from '../../actions/profileActions';
-import {addMember} from '../../actions/projectActions';
+import {addMember,removeMember} from '../../actions/projectActions';
 import {connect} from 'react-redux';
 
 class ChooseMembers extends Component {
@@ -20,15 +20,29 @@ class ChooseMembers extends Component {
     }
 
     addMember(){
-        const member={
+        let member={
             name: this.state.member.name,
             id: this.state.member.id
         }
+
         this.props.addMember(this.state.member);
+        
+
+        member={
+            name: '',
+            id: ''
+        }
+
+        this.setState({member:member});
     }
 
-    getTeamList(e){  
+    removeMember(id){
+        this.props.removeMember(id);
+        this.setState({});
+   
+    }
 
+    getTeamList(e){
         const filterData={
             name: e.target.value
         }
@@ -53,9 +67,7 @@ class ChooseMembers extends Component {
                 const chosen={
                     name:e.target.value,
                 }
-        
                 this.setState({member:chosen});
-
             }
         } else {
             const chosen={
@@ -64,8 +76,6 @@ class ChooseMembers extends Component {
     
             this.setState({member:chosen});
         }
-      
-
     }
 
     componentWillReceiveProps(nextProps){
@@ -73,13 +83,19 @@ class ChooseMembers extends Component {
             this.setState({errors:nextProps.errors})
         }
 
-        if(nextProps.projects.temporaryMembers.length>0){
-            const addedMates=nextProps.projects.temporaryMembers.map(mate=>(
-                <li className="list-group-item" key={mate.id} >{mate.name}</li>
-            ));
-                console.log(addedMates);
 
+
+        if(nextProps.projects.temporaryMembers.length>0){
+            const addedMates=nextProps.projects.temporaryMembers.map(mate=>{
+                return(
+                <li className="list-group-item" onClick={this.removeMember.bind(this,mate.id)} key={mate.id} >{mate.name}
+                    <big> -</big>
+                </li>
+            )});
             this.setState({addedMates:addedMates});
+        } else {
+            this.setState({addedMates:[]});
+
 
         }
 
@@ -108,7 +124,6 @@ class ChooseMembers extends Component {
                 placeholder="John Doe"
             >
             </input>
-
             <datalist id="teammates">
                 {selectedMates}
             </datalist>
@@ -122,11 +137,6 @@ class ChooseMembers extends Component {
             <ul className="list-group list-group-flush">
                 {this.state.addedMates}
             </ul>
-
-
-
-
-
       </div>
     )
   }
@@ -138,6 +148,6 @@ const mapStateToProps=state=>({
     projects: state.projects
 })
 
-export default connect(mapStateToProps,{getTeamMates,addMember})(ChooseMembers);
+export default connect(mapStateToProps,{getTeamMates,addMember,removeMember})(ChooseMembers);
 
 

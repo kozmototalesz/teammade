@@ -5,6 +5,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import ChooseMembers from './ChooseMembers';
+import {addMember} from '../../actions/projectActions';
 
 import {addProject} from '../../actions/profileActions'
 
@@ -46,8 +47,9 @@ class AddProjects extends Component {
         end:this.state.end,
         members:this.state.members
       }
+      console.log(prData);
 
-      this.props.addProject(prData, this.props.history);
+        this.props.addProject(prData, this.props.history);
 
     }
 
@@ -64,6 +66,8 @@ class AddProjects extends Component {
             errors:nextProps.errors
           });
       }
+
+      this.setState({members:nextProps.projects.temporaryMembers});
 
     }
 
@@ -187,6 +191,7 @@ class AddProjects extends Component {
 const mapStateToProps=state=>({
     profile: state.profile,
     errors: state.errors,
+    projects: state.projects
 })
 
-export default connect(mapStateToProps,{addProject})(withRouter(AddProjects));
+export default connect(mapStateToProps,{addProject,addMember})(withRouter(AddProjects));

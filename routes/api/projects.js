@@ -64,8 +64,7 @@ router.get(
             }
         })
         .catch(err => res.status(404).json(err));
-});     
-
+});
 
 //@route GET api/projects
 //@route Check a project
@@ -122,6 +121,9 @@ router.post(
 
         if(req.body.status) projectFields.status=req.body.status;
         if(req.body.end) projectFields.end=req.body.end;
+
+        if(req.body.members) projectFields.members=req.body.members;
+
         
         Project.findOne({handle: req.body.handle})
             .then(project => {
@@ -196,6 +198,45 @@ router.post('/milestones/', passport.authenticate('jwt',{session:false}),(req,re
             }
         })
 });
+
+
+//DELETE PROJECT
+router.delete('/:id', passport.authenticate('jwt',{session:false}),(req,res)=>{
+    Project.findOne({_id: req.params.id})
+        .then(project => {
+            console.log(req.params.id);
+            let err={};
+
+            console.log(project.leader+'/n'+req.user.id);
+
+            if(project) {
+                if(project.leader==req.user.id){
+                    Project.deleteOne({ _id: req.params.id}).then(()=>{
+
+                        Project.find({leader:req.user.id})
+                        .then(project => {
+                            console.log(project);
+                            res.json(project);
+                         
+                        })
+                        .catch(err => res.status(404).json(err));
+
+                        }
+                    )
+                                                
+                } else {
+                    err.leader='You are not the leader of this project. You cannot delete the project.';
+                    res.status(400).json(err);
+                }
+            } else {
+                    errors.handle='There is no project for this handle.'
+                    res.status(400).json(err);
+
+
+            }
+        })
+});
+
 
 router.post('/members/', passport.authenticate('jwt',{session:false}),(req,res)=>{
           

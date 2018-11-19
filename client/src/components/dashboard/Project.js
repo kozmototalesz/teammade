@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import {getMyProjects,deleteProject} from '../../actions/projectActions';
 import Moment from 'react-moment';
 
@@ -10,26 +9,29 @@ class Project extends Component {
     constructor(props){
         super(props);
         this.state={tableContent:''};
-        this.onDelete=this.onDelete.bind(this);
     }
 
     onDelete(id){
-        this.props.deleteProject(id);
+       this.props.deleteProject(id);
+
     }
 
     componentDidMount(){
         this.props.getMyProjects(); 
+        this.setState({});
     }
 
     componentWillReceiveProps(nextProps){
-
-        if(nextProps.projects.project){
-            let tableContent=(nextProps.projects.project.map(pro =>(
+        
+        if(nextProps.projects.projects){
+            console.log("LFOASZ");
+            console.log(nextProps.projects.projects);
+            let tableContent=(nextProps.projects.projects.map(pro =>(
                  <tr key={pro._id}>
                      <td>{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
-                     <td> <button onClick={this.onDelete(pro._id)} className="btn btn-danger">Delete</button>
-                     <button onClick={this.onDelete(pro._id)} className="btn btn-info">Edit</button></td>
-
+                     <td> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
+                     <button className="btn btn-info">Edit</button></td>
+ 
                  </tr>
                )))
                this.setState({tableContent:tableContent});

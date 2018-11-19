@@ -1,4 +1,4 @@
-import {GET_PROJECTS, PROJECTS_LOADING, CLEAR_CURRENT_PROFILE,ADD_TEAMMATE} from '../actions/types';
+import {GET_PROJECTS, PROJECTS_LOADING, CLEAR_CURRENT_PROFILE,ADD_TEAMMATE,ADDED_PROJECT, REMOVE_TEAMMATE} from '../actions/types';
 
 const initialState={
     projects: null,
@@ -18,13 +18,21 @@ export default function(state=initialState,action){
             return {
                 ...state,
                 loading:false,
-                projects: action.payload
+                projects: action.payload,
+                temporaryMembers: []
+
         };
         case ADD_TEAMMATE:
             return {
                 loading:false,
                 temporaryMembers: [...state.temporaryMembers,action.payload]
-            };
+        };
+        case REMOVE_TEAMMATE:
+            return {
+                ...state,
+                temporaryMembers: state.temporaryMembers.filter(item => item.id !== action.payload)
+            }
+        
 
         default:
             return state

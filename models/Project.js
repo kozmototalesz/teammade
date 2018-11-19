@@ -57,12 +57,6 @@ const ProjectSchema = new Schema({
             },
             name: {
                 type: String
-            },
-            status: {
-                type: String
-            },
-            organization: {
-                type: String
             }
         }
     ],

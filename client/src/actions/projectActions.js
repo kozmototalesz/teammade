@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING, GET_PROFILE,ADD_TEAMMATE} from './types';
+import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING, GET_PROFILE,ADD_TEAMMATE,REMOVE_TEAMMATE,ADDED_PROJECT} from './types';
 
 
 //PROJECT LOADING
@@ -15,7 +15,13 @@ export const addProject = (prData,history) => dispatch =>
 {
     axios
         .post('/api/project',prData)
-        .then(res => history.push('/dashboard'))
+        .then(res => {  
+            dispatch({
+                type:ADDED_PROJECT,
+                payload: {}
+            })
+            history.push('/dashboard')
+        })
         .catch(err => dispatch({type:GET_ERRORS, payload: err.response.data}))
 }
 
@@ -27,24 +33,29 @@ export const addMember = (userData) => dispatch => {
     })
 }
 
-
+export const removeMember = (id) => dispatch => {
+    console.log("LOFSZKETŐ");
+    dispatch({
+        type: REMOVE_TEAMMATE,
+        payload: id
+    })
+    
+}
 
 //DELETE PROJECT
 export const deleteProject = (id) => dispatch =>
 {
     axios
         .delete(`/api/project/${id}`)
-        .then(res => 
+        .then(res => {
             dispatch({
                 type: GET_PROJECTS,
                 payload: res.data
-            })    
-            
+            })
+        }
         )
-        .catch(err => dispatch({type:GET_ERRORS,payload:err.response.data}))
-
+        .catch(err => {dispatch({type:GET_ERRORS,payload: err.response.data})})
 }
-
 
 //GET ALL PROJECT
 export const getMyProjects = () => dispatch => {
