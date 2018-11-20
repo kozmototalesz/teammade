@@ -42,9 +42,9 @@ import isEmpty from '../../validation/is-empty';
     }
 
     componentDidMount(){
-        const {foo} = this.props.location.state;
-        console.log(foo);
-       // this.props.getCurrentProfile();
+        //const {foo} = this.props.location.state;
+       // console.log(foo);
+       this.props.getCurrentProfile();
     }
 
     componentWillReceiveProps(nextProps){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {getTeamMates} from '../../actions/profileActions';
-import {addMember,removeMember} from '../../actions/projectActions';
+import {addMember,removeMember,temporaryMembersList} from '../../actions/projectActions';
+
 import {connect} from 'react-redux';
 
 class ChooseMembers extends Component {
@@ -26,7 +27,6 @@ class ChooseMembers extends Component {
         }
 
         this.props.addMember(this.state.member);
-        
 
         member={
             name: '',
@@ -39,7 +39,6 @@ class ChooseMembers extends Component {
     removeMember(id){
         this.props.removeMember(id);
         this.setState({});
-   
     }
 
     getTeamList(e){
@@ -79,20 +78,13 @@ class ChooseMembers extends Component {
     }
 
     componentDidMount(){
-            console.log("NAHYLÓFASZ");
-            console.log(this.props);
-
-            if(this.props.value>0){
-                const addedMates=this.props.members.map(mate=>{
-                    return(
-                    <li className="list-group-item" onClick={this.removeMember.bind(this,mate.id)} key={mate.id} >{mate.name}
-                        <big> -</big>
-                    </li>
-                )});
-                this.setState({addedMates:addedMates});
     
-            }
-      
+            if(this.props.value.length>0){
+                
+               this.props.temporaryMembersList(this.props.value);
+            } 
+
+       
     }
 
     componentWillReceiveProps(nextProps){
@@ -118,7 +110,9 @@ class ChooseMembers extends Component {
                     {mate.name}
                 </option>
             ));
+            
             this.setState({selectedMates:selectMates});
+
         }
     }
 
@@ -161,6 +155,6 @@ const mapStateToProps=state=>({
     projects: state.projects
 })
 
-export default connect(mapStateToProps,{getTeamMates,addMember,removeMember})(ChooseMembers);
+export default connect(mapStateToProps,{getTeamMates,addMember,removeMember,temporaryMembersList})(ChooseMembers);
 
 

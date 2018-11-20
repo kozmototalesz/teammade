@@ -106,9 +106,7 @@ router.get(
     const errors={};
     Project.findOne({_id: req.params.id})
         .then(project => {
-
             if(project) {
-            
                 if(project.leader==req.user.id ){
                 res.json(project);
                 } else {
@@ -118,15 +116,10 @@ router.get(
             } else {
                 errors.noproject='There is no project for this id.';
                 return res.status(404).json(errors);
-
             }
         })
         .catch(err => res.status(404).json(err));
 });     
-
-
-
-
 
 //@route POST api/projects
 //@route Add project
@@ -157,27 +150,27 @@ router.post(
         if(req.body.end) projectFields.end=req.body.end;
 
         if(req.body.members) projectFields.members=req.body.members;
-
+        console.log(req.body.id);
         
-        Project.findOne({handle: req.body.handle})
+        Project.findOne({_id: req.body.id})
             .then(project => {
                     if(project) {
                         // Update
-
-                        if(project.leader===req.user.id){
+                        console.log("megvan");
+                        if(project.leader==req.user.id){
                             Project.findOneAndUpdate(
-                                { handle: req.body.handle },
+                                { _id: req.body.id },
                                 { $set: projectFields },
                                 { new: true }
                             )
                             .then(project => res.json(project));
+                            console.log(project);
                         } else {
                             errors.leader='You are not the leader of this project.';
                             res.status(400).json(errors);
                         }
                     } else {
                         // Create
-
                         // Check if handle exists
                         Project.findOne({ handle: projectFields.handle })
                             .then(project=>{
@@ -217,7 +210,6 @@ router.post('/milestones/', passport.authenticate('jwt',{session:false}),(req,re
                     Project.findOne({ handle: req.body.handle })
                         .then(project => {
                             project.milestones.push(newMilestone);
-
                             project.save().then(res.json(project));
 
                         })

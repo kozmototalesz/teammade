@@ -16,6 +16,7 @@ class EditProject extends Component {
     constructor(props){
         super(props);
         this.state={
+            id:'',
             handle:'',
             name:'',
             status:'',
@@ -38,6 +39,7 @@ class EditProject extends Component {
       const milestones={};
 
       const prData={
+        id:this.state.id,
         handle:this.state.handle,
         name:this.state.name,
         status:this.state.status,
@@ -45,7 +47,6 @@ class EditProject extends Component {
         end:this.state.end,
         members:this.state.members
       }
-      console.log(prData);
 
         this.props.addProject(prData, this.props.history);
 
@@ -57,10 +58,10 @@ class EditProject extends Component {
       })
     }
 
-    componentDidMount(){
-        const {id} = this.props.location.state
+    componentWillMount(){
+        const {id} = this.props.location.state;
+        this.state.id=id;
 
-        console.log(this.props.projects.projects);
         //this.props.getProject(id);
         if(this.props.projects.projects){
             var result = this.props.projects.projects.filter(obj => {
@@ -68,7 +69,7 @@ class EditProject extends Component {
             })
             
             this.setState(result[0]);
-           
+            console.log(this.state.members);
         }
     }
 
@@ -86,9 +87,6 @@ class EditProject extends Component {
 
   render() {
     const {errors}=this.state;
-
-    console.log("KISLÓFASZ");
-    console.log(this.state);
     return (
       <div className="add-project">
         <div className="containter">

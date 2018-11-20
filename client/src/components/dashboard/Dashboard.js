@@ -38,7 +38,7 @@ class Dashboard extends Component{
                 dashboardContent=(
                     <div>
                         <p className="lead text-muted"> Hey {user.name},</p>
-                        <p>You still some have missing data, please add some info.</p>
+                        <p>You still have some missing data, please add some info.</p>
                         <Link to="/edit-profile" className="btn btn-lg btn-info">Add Profile</Link>
                     </div>
                 );

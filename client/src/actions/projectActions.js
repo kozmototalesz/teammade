@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING, GET_PROFILE,ADD_TEAMMATE,REMOVE_TEAMMATE,ADDED_PROJECT,EDIT_PROJECT} from './types';
+import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING, GET_PROFILE,ADD_TEMPORARYMEMBERS,ADD_TEAMMATE,REMOVE_TEAMMATE,ADDED_PROJECT,EDIT_PROJECT} from './types';
 
 
 //PROJECT LOADING
@@ -66,6 +66,20 @@ export const deleteProject = (id) => dispatch =>
         }
         )
         .catch(err => {dispatch({type:GET_ERRORS,payload: err.response.data})})
+}
+
+// ADD MEMMBER
+export const temporaryMembersList = (members) => dispatch => {
+   
+    console.log("LFOASZ");
+            console.log(members); 
+
+    dispatch({
+        type: ADD_TEMPORARYMEMBERS,
+        payload: members
+    })
+
+
 }
 
 

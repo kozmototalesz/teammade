@@ -27,8 +27,7 @@ class Project extends Component {
     componentWillReceiveProps(nextProps){
         
         if(nextProps.projects.projects){
-            console.log("LFOASZ");
-            console.log(nextProps.projects.projects);
+    
             let tableContent=(nextProps.projects.projects.map(pro =>(
                  <tr key={pro._id}>
                      <td>{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
