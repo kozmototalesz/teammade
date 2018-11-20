@@ -18,7 +18,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import createProfile from './components/create-profile/CreateProfile';
 import editProfile from './components/edit-profile/EditProfile';
 import addProjects from './components/add-projects/AddProjects';
-
+import editProject from './components/edit-project/EditProject';
 
 
 //ACTIONS
@@ -68,6 +68,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/add-project" component={addProjects}></PrivateRoute>
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/edit-project" component={editProject}></PrivateRoute>
             </Switch>
           </div>
           <Footer></Footer>

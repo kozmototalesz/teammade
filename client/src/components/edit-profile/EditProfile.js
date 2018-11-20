@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -41,7 +42,9 @@ import isEmpty from '../../validation/is-empty';
     }
 
     componentDidMount(){
-        this.props.getCurrentProfile();
+        const {foo} = this.props.location.state;
+        console.log(foo);
+       // this.props.getCurrentProfile();
     }
 
     componentWillReceiveProps(nextProps){

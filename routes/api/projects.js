@@ -67,11 +67,11 @@ router.get(
 });
 
 //@route GET api/projects
-//@route Check a project
+//@route Check a project by handle
 //@access Private
 
 router.get(
-    '/:handle',
+    'handle/:handle',
     passport.authenticate('jwt', {session:false}),
     (req,res)=>{
     const errors={};
@@ -93,6 +93,40 @@ router.get(
         })
         .catch(err => res.status(404).json(err));
 });     
+
+//@route GET api/projects
+//@route Check a project by id 
+//@access Private
+
+
+router.get(
+    '/:id',
+    passport.authenticate('jwt', {session:false}),
+    (req,res)=>{
+    const errors={};
+    Project.findOne({_id: req.params.id})
+        .then(project => {
+
+            if(project) {
+            
+                if(project.leader==req.user.id ){
+                res.json(project);
+                } else {
+                    errors.notallowed='You cannot see this project.';
+                    res.status(400).json(errors);
+                }
+            } else {
+                errors.noproject='There is no project for this id.';
+                return res.status(404).json(errors);
+
+            }
+        })
+        .catch(err => res.status(404).json(err));
+});     
+
+
+
+
 
 //@route POST api/projects
 //@route Add project

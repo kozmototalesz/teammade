@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getMyProjects,deleteProject} from '../../actions/projectActions';
+
 import Moment from 'react-moment';
+import {Link} from 'react-router-dom';
+
 
 
 class Project extends Component {
@@ -30,7 +33,9 @@ class Project extends Component {
                  <tr key={pro._id}>
                      <td>{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
                      <td> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
-                     <button className="btn btn-info">Edit</button></td>
+                     <Link to={{ pathname: '/edit-project', state: { id: pro._id } }}>
+                     <button className="btn btn-info">Edit</button></Link>
+                    </td>
  
                  </tr>
                )))

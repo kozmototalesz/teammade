@@ -78,12 +78,27 @@ class ChooseMembers extends Component {
         }
     }
 
+    componentDidMount(){
+            console.log("NAHYLÓFASZ");
+            console.log(this.props);
+
+            if(this.props.value>0){
+                const addedMates=this.props.members.map(mate=>{
+                    return(
+                    <li className="list-group-item" onClick={this.removeMember.bind(this,mate.id)} key={mate.id} >{mate.name}
+                        <big> -</big>
+                    </li>
+                )});
+                this.setState({addedMates:addedMates});
+    
+            }
+      
+    }
+
     componentWillReceiveProps(nextProps){
         if(nextProps.errors){
             this.setState({errors:nextProps.errors})
         }
-
-
 
         if(nextProps.projects.temporaryMembers.length>0){
             const addedMates=nextProps.projects.temporaryMembers.map(mate=>{
@@ -95,8 +110,6 @@ class ChooseMembers extends Component {
             this.setState({addedMates:addedMates});
         } else {
             this.setState({addedMates:[]});
-
-
         }
 
         if(nextProps.profile.profiles){
