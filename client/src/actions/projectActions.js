@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING, GET_PROFILE,ADD_TEMPORARYMEMBERS,ADD_TEAMMATE,REMOVE_TEAMMATE,ADDED_PROJECT,EDIT_PROJECT} from './types';
+import {GET_PROJECTS, GET_ERRORS, PROJECTS_LOADING,ADD_TEMPORARYMEMBERS,ADD_TEAMMATE,REMOVE_TEAMMATE,ADDED_PROJECT} from './types';
 
 
 //PROJECT LOADING
@@ -38,7 +38,7 @@ export const editProject = (id,prData,history) => dispatch =>
 
 // ADD MEMBER
 export const addMember = (userData) => dispatch => {
-    console.log(userData);
+    
     dispatch({
         type: ADD_TEAMMATE,
         payload: userData

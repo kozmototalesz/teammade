@@ -61,7 +61,7 @@ class EditProject extends Component {
 
     componentWillMount(){
         const {id} = this.props.location.state;
-        this.state.id=id;
+        this.setState({'id':id});
 
         //this.props.getProject(id);
         if(this.props.projects.projects){
@@ -69,7 +69,6 @@ class EditProject extends Component {
                 return obj._id === id
             })         
             result[0].end=result[0].end.substring(0,10);
-            console.log(result);
             this.setState(result[0]);
         
         }

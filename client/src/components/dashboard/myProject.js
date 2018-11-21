@@ -27,9 +27,10 @@ class myProject extends Component {
 
     componentWillReceiveProps(nextProps){
         
+
         if(nextProps.projects.projects){
-    
-            let tableContent=(nextProps.projects.projects.map(pro =>(
+            const result=nextProps.projects.projects.filter(proj => proj.leader==this.props.auth.user.id);
+            let tableContent=(result.map(pro =>(
                  <tr key={pro._id}>
                      <td className="rows">{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
                      <td style={{textAlign:'right'}}> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
@@ -61,7 +62,8 @@ class myProject extends Component {
 }
 
 const mapStateToProps = state => ({
-    projects: state.projects
+    projects: state.projects,
+    auth: state.auth
 })
 
 export default connect(mapStateToProps,{getMyProjects,deleteProject})(myProject);

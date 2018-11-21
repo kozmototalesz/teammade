@@ -25,7 +25,6 @@ const optionsRender=(
 
             <datalist id="teammates">
                 {selectMates}
-                
             </datalist>
     </div>
   )

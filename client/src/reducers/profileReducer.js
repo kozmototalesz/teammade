@@ -1,4 +1,4 @@
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES, ADD_TEAMMATES} from '../actions/types';
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES} from '../actions/types';
 
 const initialState={
     profile:null,
