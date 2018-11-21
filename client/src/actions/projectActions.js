@@ -36,8 +36,9 @@ export const editProject = (id,prData,history) => dispatch =>
         .catch(err => dispatch({type:GET_ERRORS, payload: err.response.data}))
 }
 
-// ADD MEMMBER
+// ADD MEMBER
 export const addMember = (userData) => dispatch => {
+    console.log(userData);
     dispatch({
         type: ADD_TEAMMATE,
         payload: userData
@@ -71,8 +72,6 @@ export const deleteProject = (id) => dispatch =>
 // ADD MEMMBER
 export const temporaryMembersList = (members) => dispatch => {
    
-    console.log("LFOASZ");
-            console.log(members); 
 
     dispatch({
         type: ADD_TEMPORARYMEMBERS,

@@ -23,14 +23,14 @@ class ChooseMembers extends Component {
     addMember(){
         let member={
             name: this.state.member.name,
-            id: this.state.member.id
+            _id: this.state.member.id
         }
 
-        this.props.addMember(this.state.member);
+        this.props.addMember(member);
 
         member={
             name: '',
-            id: ''
+            _id: ''
         }
 
         this.setState({member:member});
@@ -38,7 +38,7 @@ class ChooseMembers extends Component {
 
     removeMember(id){
         this.props.removeMember(id);
-        this.setState({});
+        
     }
 
     getTeamList(e){
@@ -80,7 +80,6 @@ class ChooseMembers extends Component {
     componentDidMount(){
     
             if(this.props.value.length>0){
-                
                this.props.temporaryMembersList(this.props.value);
             } 
 
@@ -95,7 +94,7 @@ class ChooseMembers extends Component {
         if(nextProps.projects.temporaryMembers.length>0){
             const addedMates=nextProps.projects.temporaryMembers.map(mate=>{
                 return(
-                <li className="list-group-item" onClick={this.removeMember.bind(this,mate.id)} key={mate.id} >{mate.name}
+                <li className="list-group-item" onClick={this.removeMember.bind(this,mate._id)} key={mate._id} >{mate.name}
                     <big> -</big>
                 </li>
             )});
@@ -121,30 +120,30 @@ class ChooseMembers extends Component {
     return (
       <div>
        
-       <div className="form-group col-lg-12">
-                    {(<p><small className="from-text text-muted">Choose your teammates</small></p>)}
-            <div className="row">
+       <div className="form-group">
+                    {(<p className="text-muted">Choose your teammates</p>)}
+            
             <input list="teammates"
                 className="col-lg-6 custom-select custom-select-sm"
                 onChange={this.getTeamList}
                 value={this.state.member.name}
                 placeholder="John Doe"
             >
-            </input>
+            </input> <span onClick={this.addMember} >
+                <big>+</big>
+            </span>
             <datalist id="teammates">
                 {selectedMates}
             </datalist>
             
-            <div onClick={this.addMember} className="col-lg-6">
-                <big>+</big>
-            </div>
+            
         </div>
-        </div>
+       
 
             <ul className="list-group list-group-flush">
                 {this.state.addedMates}
             </ul>
-      </div>
+            </div>
     )
   }
 }

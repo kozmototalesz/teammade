@@ -9,8 +9,6 @@ import {addMember} from '../../actions/projectActions';
 
 import {addProject} from '../../actions/profileActions'
 
-
-
 import {connect} from 'react-redux';
 
 
@@ -47,7 +45,7 @@ class AddProjects extends Component {
         end:this.state.end,
         members:this.state.members
       }
-      console.log(prData);
+    
 
         this.props.addProject(prData, this.props.history);
 
@@ -69,6 +67,7 @@ class AddProjects extends Component {
 
       this.setState({members:nextProps.projects.temporaryMembers});
 
+
     }
 
 
@@ -80,15 +79,19 @@ class AddProjects extends Component {
         <div className="containter">
             <div className="row">
               <div className="col-lg-12">
+              <Link to="/dashboard" className="btn btn-light"> &lt;	 back</Link>
+
               <h1 className="display-4 text-center">Create your Project</h1>
                           <p className="lead text-center">
                               Please add the details of your project
                           </p>
               </div>
             </div>
-            <div className="row">
-            
+            <div className="row" style={{marginTop:20}}>
+           
+
                 <div className="col-md-6" style={{display: 'flex',justifyContent:'flex-end'}}>
+                 <br></br>
                     <form onSubmit={this.onSubmit} style={{flex:0.5}}>
                     
                         <div className="col-lg-12">
@@ -159,7 +162,7 @@ class AddProjects extends Component {
 
                 </div>
                 <div className="col-lg-6">
-                      <div className="row">
+                      
                       <div className="col-lg-6">
                       
                       {/* <SelectListGroup
@@ -178,7 +181,7 @@ class AddProjects extends Component {
 
 
                       </div>
-                      </div>
+                     
                 </div>
             </div>
         </div>

@@ -5,9 +5,10 @@ import {getMyProjects,deleteProject} from '../../actions/projectActions';
 import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
 
+import '../../App.css';
 
 
-class Project extends Component {
+class myProject extends Component {
 
     constructor(props){
         super(props);
@@ -30,10 +31,10 @@ class Project extends Component {
     
             let tableContent=(nextProps.projects.projects.map(pro =>(
                  <tr key={pro._id}>
-                     <td>{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
-                     <td> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
+                     <td className="rows">{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
+                     <td style={{textAlign:'right'}}> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
                      <Link to={{ pathname: '/edit-project', state: { id: pro._id } }}>
-                     <button className="btn btn-info">Edit</button></Link>
+                     <button style={{marginLeft:5}}className="btn btn-info">Edit</button></Link>
                     </td>
  
                  </tr>
@@ -44,11 +45,11 @@ class Project extends Component {
 
     render() {
     return (
-      <div>
-        <h4 className="mb-4">Projects</h4>
-        <table className="table">
+      <div className="col-lg-6">
+        <h4 className="mb-4">Your projects</h4>
+        <table className="table " >
         <thead>
-            <tr><th>Name</th><th>End</th><th></th><th></th></tr>
+            <tr><th>Name</th><th>End</th><th></th></tr>
         </thead>
             <tbody>
             {this.state.tableContent}
@@ -63,4 +64,4 @@ const mapStateToProps = state => ({
     projects: state.projects
 })
 
-export default connect(mapStateToProps,{getMyProjects,deleteProject})(Project);
+export default connect(mapStateToProps,{getMyProjects,deleteProject})(myProject);

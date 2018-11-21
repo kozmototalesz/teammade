@@ -46,3 +46,7 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}

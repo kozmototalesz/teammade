@@ -30,7 +30,7 @@ export default function(state=initialState,action){
         case REMOVE_TEAMMATE:
             return {
                 ...state,
-                temporaryMembers: state.temporaryMembers.filter(item => item.id !== action.payload)
+                temporaryMembers: state.temporaryMembers.filter(item => item._id !== action.payload)
         };
         case ADD_TEMPORARYMEMBERS:
               

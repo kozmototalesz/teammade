@@ -6,6 +6,7 @@ import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import ChooseMembers from '../add-projects/ChooseMembers';
 import {addMember} from '../../actions/projectActions';
+import {Moment} from 'react-moment';
 
 import {addProject} from '../../actions/profileActions';
 
@@ -65,11 +66,12 @@ class EditProject extends Component {
         //this.props.getProject(id);
         if(this.props.projects.projects){
             var result = this.props.projects.projects.filter(obj => {
-                return obj._id == id
-            })
-            
+                return obj._id === id
+            })         
+            result[0].end=result[0].end.substring(0,10);
+            console.log(result);
             this.setState(result[0]);
-            console.log(this.state.members);
+        
         }
     }
 
@@ -92,15 +94,18 @@ class EditProject extends Component {
         <div className="containter">
             <div className="row">
               <div className="col-lg-12">
-              <h1 className="display-4 text-center">Create your Project</h1>
+              <Link to="/dashboard" className="btn btn-light"> &lt;	 back</Link>
+
+              <h1 className="display-4 text-center">Edit your Project</h1>
                           <p className="lead text-center">
-                              Please add the details of your project
+                              Please edit the details of your project
                           </p>
               </div>
             </div>
-            <div className="row">
+            <div className="row" style={{marginTop:20}}>
             
                 <div className="col-md-6" style={{display: 'flex',justifyContent:'flex-end'}}>
+                 <br></br>
                     <form onSubmit={this.onSubmit} style={{flex:0.5}}>
                     
                         <div className="col-lg-12">

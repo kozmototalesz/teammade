@@ -5,10 +5,11 @@ import {Link} from 'react-router-dom';
 import {getCurrentProfile} from '../../actions/profileActions';
 import ProfileActions from './ProfileActions';
 
-import Project from './Project'
+import MyProject from './myProject';
 
 
 import Spinner from '../common/Spinner';
+import AllProject from './allProject';
 
 class Dashboard extends Component{
     componentDidMount(){
@@ -30,8 +31,10 @@ class Dashboard extends Component{
                     <div>
                         <p className="lead text-muted">Welcome {user.name}, </p>
                         <ProfileActions></ProfileActions>
-                        <Project></Project>
-
+                        <div className="row">
+                        <MyProject></MyProject>
+                        <AllProject></AllProject>
+                        </div>
                     </div>
                 )
             } else {
