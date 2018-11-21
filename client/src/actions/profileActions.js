@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, ADD_TEAMMATE, GET_TEAMMATES} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, ADD_TEAMMATE, GET_TEAMMATES, ADD_WORKING_HOURS} from './types';
 
 //GET CURRENT PROFILE
 
@@ -26,6 +26,22 @@ export const setProfileLoading = () => {
     }
 }
 
+//ADD WORKING HOURS
+export const addWorkingHours = (workhours) => dispatch =>{
+
+        axios.post('/api/profile/workinghours',workhours)
+        .then(res =>
+            dispatch({
+                type: ADD_WORKING_HOURS,
+                payload:res.data
+            }))
+        .catch(err=>
+            dispatch({
+                type: GET_ERRORS,
+                payload: {}
+            })
+    );
+}
 
 //PROFILE CLEARING
 export const clearProfile = () => {
@@ -49,23 +65,6 @@ export const getTeamMates = (filterData) => dispatch => {
                 payload: err.response.data
             })
     );
-}
-
-export const addMember = (userData) => dispatch => {
-    dispatch({
-        type: ADD_TEAMMATE,
-        payload: 'lofasz'
-    })
-}
-
-
-//ADD PROJECT
-export const addProject = (prData,history) => dispatch =>
-{
-    axios
-        .post('/api/project',prData)
-        .then(res => history.push('/dashboard'))
-        .catch(err => dispatch({type:GET_ERRORS, payload: err.response.data}))
 }
 
 

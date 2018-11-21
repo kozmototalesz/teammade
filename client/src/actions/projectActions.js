@@ -55,7 +55,7 @@ export const removeMember = (id) => dispatch => {
 }
 
 //DELETE PROJECT
-export const deleteProject = (id) => dispatch =>
+export const deleteProject = (id,history) => dispatch =>
 {
     axios
         .delete(`/api/project/${id}`)
@@ -64,24 +64,21 @@ export const deleteProject = (id) => dispatch =>
                 type: GET_PROJECTS,
                 payload: res.data
             })
+
+            console.log(res.data);
+            history.push('/dashboard');
         }
         )
         .catch(err => {dispatch({type:GET_ERRORS,payload: err.response.data})})
 }
 
-// ADD MEMMBER
+// ADD MEMBER
 export const temporaryMembersList = (members) => dispatch => {
-   
-
     dispatch({
         type: ADD_TEMPORARYMEMBERS,
         payload: members
     })
-
-
 }
-
-
 
 //GET ALL PROJECT
 export const getMyProjects = () => dispatch => {

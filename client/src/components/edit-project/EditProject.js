@@ -8,7 +8,7 @@ import ChooseMembers from '../add-projects/ChooseMembers';
 import {addMember} from '../../actions/projectActions';
 import {Moment} from 'react-moment';
 
-import {addProject} from '../../actions/profileActions';
+import {addProject} from '../../actions/projectActions';
 
 import {connect} from 'react-redux';
 

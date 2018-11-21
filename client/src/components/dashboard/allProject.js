@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getMyProjects,deleteProject} from '../../actions/projectActions';
+import {addWorkingHours} from '../../actions/profileActions';
+import {withRouter} from 'react-router-dom';
+
+
 
 import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
@@ -14,16 +18,9 @@ class AllProject extends Component {
     constructor(props){
         super(props);
         this.state={
-            tasks:'',
-            jobdone:
-            {
-                projid:'',
-                hours:''
-            }
-
+            tasks:''
         };
-
-        this.onChange=this.onChange.bind(this);
+        this.onSubmit=this.onSubmit.bind(this);
     }
 
     onDelete(id){
@@ -31,26 +28,31 @@ class AllProject extends Component {
     }
 
     onSubmit(e){
+
         e.preventDefault();
-        const profileData={
-            handle:this.state.handle,
-            status:this.state.status,
-            skills:this.state.skills,
-            organization:this.state.organization,
-            workinghours:this.state.workinghours,
-        }
-        this.props.addWorkingHours(profileData,this.props.history);
+
+        this.props.addWorkingHours(this.state.tasks);
     }
 
-    onChange(e){
+    onChange(projid,e){
         e.preventDefault();
         console.log(e.target.value + e.target.name);
-        this.setState({
-            jobdone:{
-                hours: e.target.value,
-                projid: e.target.key,
+
+        console.log(projid);
+
+
+
+        let hours=this.state.tasks.map(task => {
+            if(task._id===projid){ 
+                return task.hours=e.target.value;
+            } else {
+                return task;
             }
         });
+
+        console.log(hours);
+
+        this.setState(hours);
     }
 
     componentDidMount(){
@@ -70,7 +72,7 @@ class AllProject extends Component {
                         return members._id===this.props.auth.user.id;
                     });
 
-                    if (filtered.length!=0)
+                    if (filtered.length!==0)
                     {
                         return proj;
                     } 
@@ -79,6 +81,7 @@ class AllProject extends Component {
             });
 
             result = result.filter((i) => i);
+
             this.setState({tasks: result});
         }
     
@@ -99,12 +102,11 @@ class AllProject extends Component {
                                                         <Moment format="YYYY/MM/DD">{pro.end}</Moment>
                                                     </td>
                                                     <td >
-                                                        <input key={pro._id} placeholder="6 hours" onChange={this.onChange} type="number" value={this.state.jobdone.hours} style={{width:"80%",float:"right"}} className="form-control form-control-lg" ></input>
+                                                        <input key={pro._id} placeholder="6 hours" onChange={(e) => this.onChange(pro._id, e)} type="number" name={pro._id} value={result.hours} style={{width:"80%",float:"right"}} className="form-control form-control-lg" ></input>
                                                     </td>
-                                                    <td >
-                                                        <Link to={{ pathname: '/edit-project', state: { id: pro._id } }}>
+                                                    <td>
 
-                                                        <button style={{marginLeft:5}} className="btn btn-info">Check it</button></Link>
+                                                        <button style={{marginLeft:5}} onClick={this.onSubmit} className="btn btn-info">done it</button>
                                                     </td>
                                                 </tr>
                                             )
@@ -147,4 +149,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps,{getMyProjects,deleteProject})(AllProject);
+export default connect(mapStateToProps,{getMyProjects,deleteProject,addWorkingHours})(AllProject);

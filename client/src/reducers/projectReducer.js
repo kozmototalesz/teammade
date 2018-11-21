@@ -20,7 +20,6 @@ export default function(state=initialState,action){
                 loading:false,
                 projects: action.payload,
                 temporaryMembers: []
-
         };
         case ADD_TEAMMATE:
             return {

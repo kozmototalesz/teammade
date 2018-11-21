@@ -5,7 +5,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import ChooseMembers from './ChooseMembers';
 import {addMember} from '../../actions/projectActions';
 
-import {addProject} from '../../actions/profileActions'
+import {addProject} from '../../actions/projectActions'
 
 import {connect} from 'react-redux';
 

@@ -52,7 +52,7 @@ router.get(
     (req,res)=>{
     const errors={};
     console.log(req.query.name);
-    User.find({'name':{"$regex": req.query.name, "$options": "i" }},{_id:1,name:1,email:1
+    User.find({"name":{"$regex": req.query.name, "$options": "i" }},{_id:1,name:1,email:1
         }).then(profile =>{
             if(!profile) {
                 errors.noprofile='There is no profile for this user';
@@ -85,6 +85,17 @@ router.get(
             res.json(profile);
         })
         .catch(err => res.status(404).json(err));
+});
+
+
+//@route POST api/profile/workinghours
+//@route Create current users profile
+//@access Private
+
+router.post('/workinghours', passport.authenticate('jwt',{session:false}),(req,res)=>{
+          
+    console.log(req.body);
+    res.status(200);
 });
 
 //@route POST api/profile/
@@ -158,12 +169,6 @@ router.post(
         if(req.body.organization) profileFields.organization=req.body.organization;
         if(req.body.workinghours) profileFields.workinghours=req.body.workinghours;
         */
-
-
 });
-
-
-
-
 
 module.exports=router;

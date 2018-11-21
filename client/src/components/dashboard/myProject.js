@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getMyProjects,deleteProject} from '../../actions/projectActions';
+import {withRouter} from 'react-router-dom';
+
 
 import Moment from 'react-moment';
 import {Link} from 'react-router-dom';
@@ -16,7 +18,7 @@ class myProject extends Component {
     }
 
     onDelete(id){
-       this.props.deleteProject(id);
+       this.props.deleteProject(id,this.props.history);
 
     }
 
@@ -29,13 +31,13 @@ class myProject extends Component {
         
 
         if(nextProps.projects.projects){
-            const result=nextProps.projects.projects.filter(proj => proj.leader==this.props.auth.user.id);
+            const result=nextProps.projects.projects.filter(proj => proj.leader===this.props.auth.user.id);
             let tableContent=(result.map(pro =>(
                  <tr key={pro._id}>
                      <td className="rows">{pro.name}</td><td><Moment format="YYYY/MM/DD">{pro.end}</Moment></td>
                      <td style={{textAlign:'right'}}> <button onClick={this.onDelete.bind(this,pro._id)} className="btn btn-danger">Delete</button>
                      <Link to={{ pathname: '/edit-project', state: { id: pro._id } }}>
-                     <button style={{marginLeft:5}}className="btn btn-info">Edit</button></Link>
+                     <button style={{marginLeft:5}} className="btn btn-info">Edit</button></Link>
                     </td>
  
                  </tr>
@@ -66,4 +68,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps,{getMyProjects,deleteProject})(myProject);
+export default connect(mapStateToProps,{getMyProjects,deleteProject})(withRouter(myProject));

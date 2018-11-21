@@ -38,6 +38,9 @@ router.get(
 
 
 
+
+
+
 //@route GET api/projects
 //@route Check a project
 //@access Private
@@ -187,6 +190,64 @@ router.post(
 });
 
 
+//@route POST api/projects
+//@route Add project
+//@access Private
+
+router.post(
+    '/workinghours',
+    passport.authenticate('jwt',{session:false}),
+    (req,res)=>{
+        const {errors, isValid} = validateProjectInput(req.body);
+
+        //Check Validation
+        if(!isValid){
+            //Return any errors with 400 status
+            return res.status(400).json(errors);
+        }
+
+        //Get fields
+        const projectFields={};
+        projectFields.leader=req.user.id;
+
+        if(req.body.handle) projectFields.handle=req.body.handle;                
+        
+        Project.findOne({_id: req.body.id})
+            .then(project => {
+                    if(project) {
+                        // Update
+                        console.log("megvan");
+                        if(project.leader==req.user.id){
+                            Project.findOneAndUpdate(
+                                { _id: req.body.id },
+                                { $set: projectFields },
+                                { new: true }
+                            )
+                            .then(project => res.json(project));
+                            console.log(project);
+                        } else {
+                            errors.leader='You are not the leader of this project.';
+                            res.status(400).json(errors);
+                        }
+                    } else {
+                        // Create
+                        // Check if handle exists
+                        Project.findOne({ handle: projectFields.handle })
+                            .then(project=>{
+                                if(project){
+                                    errors.handle='That handle already exits.'
+                                    res.status(400).json(errors);
+                                }
+                            })
+                        
+                            new Project(projectFields).save()
+                                .then(project => res.json(project))
+                    }
+                })
+});
+
+
+
 //@route POST api/
 //@route Add Milestone to a project
 //@access Private
@@ -239,11 +300,10 @@ router.delete('/:id', passport.authenticate('jwt',{session:false}),(req,res)=>{
                 if(project.leader==req.user.id){
                     Project.deleteOne({ _id: req.params.id}).then(()=>{
 
-                        Project.find({leader:req.user.id})
+                        Project.find()
                         .then(project => {
                             console.log(project);
                             res.json(project);
-                         
                         })
                         .catch(err => res.status(404).json(err));
 
@@ -296,6 +356,12 @@ router.post('/members/', passport.authenticate('jwt',{session:false}),(req,res)=
                     res.status(400).json(errors);
             }
         })
+});
+
+
+router.post('/workinghours', passport.authenticate('jwt',{session:false}),(req,res)=>{
+          
+console.log(req.body.workinghours);
 });
 
 module.exports=router;
