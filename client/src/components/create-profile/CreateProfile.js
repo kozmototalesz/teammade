@@ -62,8 +62,10 @@ import {createnewProfile} from '../../actions/profileActions';
                     <p className="lead text-center">
                         Please add your missing informations
                     </p>
-                   
-                    <form onSubmit={this.onSubmit}>
+                    <div style={{display: 'flex', justifyContent: 'center'}} className="text-center">
+
+
+                    <form onSubmit={this.onSubmit} style={{width:'80%'}}>
                     <div className="col-md-6 m-auto">
                         <TextFieldGroup 
                             placeholder="Profile Handle"
@@ -126,6 +128,7 @@ import {createnewProfile} from '../../actions/profileActions';
 
                     </form>
                     
+                    </div>
 
                 </div>
             </div>

@@ -6,6 +6,8 @@ import TextAreaFieldGroup from '../common/TextFieldGroup';
 import {withRouter} from 'react-router-dom';
 import {createnewProfile, getCurrentProfile} from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
+import {Link} from 'react-router-dom';
+
 
 
  class CreateProfile extends Component {
@@ -42,8 +44,7 @@ import isEmpty from '../../validation/is-empty';
     }
 
     componentDidMount(){
-        //const {foo} = this.props.location.state;
-       // console.log(foo);
+
        this.props.getCurrentProfile();
     }
 
@@ -83,10 +84,18 @@ import isEmpty from '../../validation/is-empty';
       <div className="create-profle">
         <div className="containter">
             <div className="row">
+                <div className="col-lg-12">
+                    <Link to="/dashboard" className="btn btn-light"> &lt;	 back</Link>
+                </div>
                 <div className="col-md-8 m-auto">
+
                     <h1 className="display-4 text-center">Edit you profile</h1>
-                   
-                    <form onSubmit={this.onSubmit}>
+                    <p className="lead text-center">modify your personal informations</p>
+                    
+                    <div style={{display: 'flex', justifyContent: 'center'}} className="text-center">
+
+
+                    <form onSubmit={this.onSubmit} style={{width:'80%'}}>
                     <div className="col-md-6 m-auto">
                         <TextFieldGroup 
                             placeholder="Profile Handle"
@@ -97,8 +106,6 @@ import isEmpty from '../../validation/is-empty';
                         >
                         </TextFieldGroup>
                         </div>
-
-
                           <div className="col-md-6 m-auto">
                         <TextFieldGroup 
                             placeholder="Status"
@@ -149,6 +156,7 @@ import isEmpty from '../../validation/is-empty';
 
                     </form>
                     
+                    </div>
 
                 </div>
             </div>

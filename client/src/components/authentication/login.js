@@ -17,7 +17,6 @@ class Login extends Component {
     }
 
     onChange(e){
-        console.log(e.target.name);
         this.setState(
             {[e.target.name]:e.target.value
             }
@@ -65,7 +64,9 @@ class Login extends Component {
                     <div className="col-md-8 m-auto">
                     <h1 className="display-4 text-center">Log in</h1>
                     <p className="lead text-center">work as never before</p>
-                    <form onSubmit={this.onSubmit}>
+                    <div style={{display: 'flex', justifyContent: 'center'}} className="text-center">
+                    
+                    <form onSubmit={this.onSubmit} style={{width:'40%'}}>
 
                         <TextFieldGroup placeholder="Email address"
                         name="email"
@@ -85,6 +86,7 @@ class Login extends Component {
 
                         <input type="submit" className="btn btn-info btn-block mt-4" />
                     </form>
+                    </div>
                     </div>
                 </div>
                 </div>

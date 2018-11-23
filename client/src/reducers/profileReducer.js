@@ -1,10 +1,11 @@
-import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES} from '../actions/types';
+import {GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_TEAMMATES,GET_WORKING_HOURS} from '../actions/types';
 
 const initialState={
     profile:null,
     loading: false,
     profiles:null,
     chosen:null,
+    workinghours:null
 }
 
 export default function(state=initialState,action){
@@ -29,6 +30,11 @@ export default function(state=initialState,action){
             return{
                 ...state,
                 profiles:action.payload
+            }
+        case GET_WORKING_HOURS:
+            return{
+                ...state,
+                workinghours:action.payload
             }
 
         default:

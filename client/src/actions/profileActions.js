@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, ADD_TEAMMATE, GET_TEAMMATES, ADD_WORKING_HOURS} from './types';
+import {GET_PROFILE, PROFILE_LOADING,CLEAR_CURRENT_PROFILE, GET_ERRORS, PROJECTS_LOADING, ADD_TEAMMATE, GET_TEAMMATES, ADD_WORKING_HOURS, GET_WORKING_HOURS} from './types';
 
 //GET CURRENT PROFILE
 
@@ -48,6 +48,25 @@ export const clearProfile = () => {
     return{
         type: CLEAR_CURRENT_PROFILE
     }
+}
+
+
+
+//GET WORKING HOURSE
+export const getJobHours = (handle) => dispatch => {
+    dispatch(setProfileLoading());
+    axios.get(`/api/profile/${handle}`)
+        .then(res =>
+            dispatch({
+                type: GET_WORKING_HOURS,
+                payload:res.data
+            }))
+        .catch(err=>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+    );
 }
 
 //GET TEAMMATES BY NAME

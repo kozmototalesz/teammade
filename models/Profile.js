@@ -25,8 +25,29 @@ const ProfileSchema = new Schema({
     workinghours:{
         type: Number
     },
+    worked:[
+        {   
+            date: {
+                type: String
+            },
+            jobdone: [
+                {
+                    name: {
+                        type:String
+                    },
+                    hours: {
+                        type: Number
+                    },
+                    _id: {
+                        type: Schema.Types.ObjectId,
+
+                    }
+                }
+            ]
+        }
+    ],
     projects: [
-        {
+        { 
             project: {
                 type: Schema.Types.ObjectId,
                 ref: 'projects'
@@ -34,10 +55,6 @@ const ProfileSchema = new Schema({
             percentage: {
                 type: Number,
                 required: true
-            },
-            leader: {
-                type: Boolean,
-                default: false
             },
             hours: [
                 {

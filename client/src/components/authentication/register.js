@@ -65,7 +65,9 @@ class Register extends Component {
                     <div className="col-md-8 m-auto">
                     <h1 className="display-4 text-center">Sign Up</h1>
                     <p className="lead text-center">create your job account</p>
-                    <form noValidate onSubmit={this.onSubmit}>
+                    <div style={{display: 'flex', justifyContent: 'center'}} className="text-center">
+
+                    <form noValidate onSubmit={this.onSubmit} style={{width:'40%'}} >
                         <TextFieldGroup placeholder="Name"
                             name="name"
                             type="name"
@@ -101,6 +103,8 @@ class Register extends Component {
                         <input type="submit" className="btn btn-info btn-block mt-4" />
                     </form>
                     </div>
+                    </div>
+
                 </div>
                 </div>
             </div>
