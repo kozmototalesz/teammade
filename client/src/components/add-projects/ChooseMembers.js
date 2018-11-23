@@ -26,8 +26,9 @@ class ChooseMembers extends Component {
             _id: this.state.member.id
         }
 
-        this.props.addMember(member);
-
+        if(this.state.member.name.length){
+         this.props.addMember(member);
+        }
         member={
             name: '',
             _id: ''
@@ -127,7 +128,7 @@ class ChooseMembers extends Component {
                 className="col-lg-6 custom-select custom-select-sm"
                 onChange={this.getTeamList}
                 value={this.state.member.name}
-                placeholder="type: John Doe"
+                placeholder="type: Viktor Kozma"
             >
             </input> <span onClick={this.addMember} >
                 <big>+</big>
