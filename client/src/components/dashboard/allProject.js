@@ -36,9 +36,7 @@ class AllProject extends Component {
 
     onChange(projid,e){
         e.preventDefault();
-        console.log(e.target.value + e.target.name);
-
-        console.log(projid);
+ 
 
 
 
@@ -50,7 +48,6 @@ class AllProject extends Component {
             }
         });
 
-        console.log(hours);
 
         this.setState(hours);
     }
