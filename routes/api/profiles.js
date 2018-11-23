@@ -157,8 +157,16 @@ router.post('/workinghours', passport.authenticate('jwt',{session:false}),(req,r
                 )
                 .then(profile => {
                     console.log("LOL");
-                    console.log(profile);
-                      
+                    if(!profile){
+                        Profile.findOneAndUpdate(
+                            { 'user': req.user.id},
+                            {   $push: {
+                                    worked
+                                    }
+                            },
+                            { new: true }
+                        ).then(ok=> console.log(ok));
+                    }
                 }).catch(err=>console.log(err));
             } 
         });
