@@ -127,7 +127,7 @@ class ChooseMembers extends Component {
                 className="col-lg-6 custom-select custom-select-sm"
                 onChange={this.getTeamList}
                 value={this.state.member.name}
-                placeholder="John Doe"
+                placeholder="type: John Doe"
             >
             </input> <span onClick={this.addMember} >
                 <big>+</big>
