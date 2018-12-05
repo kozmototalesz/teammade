@@ -142,35 +142,26 @@ router.post('/workinghours', passport.authenticate('jwt',{session:false}),(req,r
         'jobdone': hours
     }
 
-    console.log(worked);
     Profile.findOne({user: req.user.id})
     .then(profile => {
             if(profile){
-                // Update
                 Profile.findOneAndUpdate(
-                    { 'user': req.user.id, 'worked.date':today},
-                    {   $set: {
-                            worked
-                            }
-                    },
+                    { 'user': req.user.id, 'worked.date':today },
+                    {   $set: {worked} },
                     { new: true }
                 )
                 .then(profile => {
-                    console.log("LOL");
                     if(!profile){
                         Profile.findOneAndUpdate(
                             { 'user': req.user.id},
-                            {   $push: {
-                                    worked
-                                    }
+                            {   $push: { worked }
                             },
                             { new: true }
-                        ).then(ok=> console.log(ok));
+                        ).then( profile => res.json.profile );
                     }
                 }).catch(err=>console.log(err));
             } 
-        });
-  
+    });
     res.status(200);
 });
 

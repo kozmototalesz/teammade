@@ -32,8 +32,8 @@ class Dashboard extends Component{
                         <p className="lead text-muted">Welcome {user.name}, </p>
                         <ProfileActions></ProfileActions>
                         <div className="row">
-                        <MyProject></MyProject>
-                        <AllProject></AllProject>
+                            <MyProject></MyProject>
+                            <AllProject></AllProject>
                         </div>
                     </div>
                 )

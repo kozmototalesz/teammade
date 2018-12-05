@@ -10,7 +10,6 @@ const validateProjectInput=require('../../validation/project');
 // Load Profile
 const Profile=require('../../models/Profile');
 const Project=require('../../models/Project');
-
 const User=require('../../models/User');
 
 
@@ -359,9 +358,6 @@ router.post('/members/', passport.authenticate('jwt',{session:false}),(req,res)=
 });
 
 
-router.post('/workinghours', passport.authenticate('jwt',{session:false}),(req,res)=>{
-          
-console.log(req.body.workinghours);
-});
+
 
 module.exports=router;

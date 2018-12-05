@@ -65,7 +65,6 @@ export const deleteProject = (id,history) => dispatch =>
                 payload: res.data
             })
 
-            console.log(res.data);
             history.push('/dashboard');
         }
         )
